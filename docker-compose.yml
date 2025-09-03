@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:16
@@ -10,13 +8,13 @@ services:
     volumes:
       - dbdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL","pg_isready -U postgres"]
       interval: 5s
       retries: 5
       timeout: 3s
 
   api:
-    build: .
+    image: ghcr.io/vladmarianpitariu/cloudnotes:latest   # ← pull from GHCR
     depends_on:
       db:
         condition: service_healthy
@@ -24,15 +22,6 @@ services:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/cloudnotes
     ports:
       - "8000:8000"
-
-  test:
-    build: .
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/cloudnotes
-    command: pytest -q
 
 volumes:
   dbdata:
