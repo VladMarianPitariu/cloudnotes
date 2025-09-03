@@ -1,9 +1,21 @@
 from fastapi import FastAPI, HTTPException
 from .models import Note, NoteIn
 from .storage import InMemoryStore
+from .db import init_db
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="CloudNotes")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+app = FastAPI(title="CloudNotes", lifespan=lifespan)
+
 store = InMemoryStore()
+
+@app.on_event("startup")
+def startup_event():
+    init_db()
 
 @app.get("/health")
 def health():
