@@ -58,7 +58,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ steps.prep.outputs.owner_lc }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Build & Push
         uses: docker/build-push-action@v6
