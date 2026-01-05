@@ -10,6 +10,10 @@ FastAPI-backed notes API with an in-memory store plus a Bootstrap GUI.
 ## Running locally
 ````bash
 python -m venv .venv && source .venv/bin/activate
-pip install -r [requirements.txt](http://_vscodecontentref_/1)
+pip install -r requirements.txt
 uvicorn app.main:app --reload
 `````
+or via 
+````bash
+docker compose up -build
+````
