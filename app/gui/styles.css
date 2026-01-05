@@ -1,0 +1,11 @@
+body {
+  min-height: 100vh;
+}
+
+.card-note {
+  border-radius: 12px;
+}
+
+.card-note small {
+  color: #6c757d;
+}
